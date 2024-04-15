@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта с адресом</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        #map { height: 10px; weight: 5  px;}
+
+
+    </style>
+</head>
+<!--<div>
+    <img height=100% width=100% src="/static/img/{{params.picture}}" >
+</div>-->
+
+<h1>{{ params.job }}</h1>
+
+
+<h2>Сфера {{ params.spher }}</h2>
+
+
+<h1>Карта с адресом</h1>
+<div id="map">{{ adr|safe }}</div>
+
+<h2>Описание:<br> {{ params.des }}</h2>
+
+<h2>Возраст: {{params.age}}</h2>
+
+<h2>Автор(ы): {{params.user.name}}</h2>
+
+
+<style>
+.button_1650989547198 {
+    display: inline-block !important;
+    text-decoration: none !important;
+    background-color: #eaeaea !important;
+    color: #006089 !important;
+    border: 6px solid #006089 !important;
+    border-radius: 100px !important;
+    font-size: 21px !important;
+    padding: 8px 18px !important;
+    transition: all 0.2s ease !important;
+}
+.button_1650989547198:hover{
+    text-decoration: none !important;
+    background-color: #006089 !important;
+    color: #ffeded !important;
+    border-color: #006089 !important;
+}

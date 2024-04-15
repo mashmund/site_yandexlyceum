@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фильтр объявлений</title>
+</head>
+<body>
+<h1>Фильтрация объявлений</h1>
+
+<form action="/filter_ads" method="post">
+    <label for="category">Выберите сферу деятельности:</label>
+    <select name="category" id="category">
+        <option value="tech">Техническая</option>
+        <option value="clothing">Одежда</option>
+    </select>
+    <button type="submit">Применить фильтр</button>
+</form>
+
+<form action="/filter_ads" method="post">
+    <label for="duration">Выберите длительность:</label>
+    <select name="duration" id="duration">
+        <option value="short">Кратко</option>
+        <option value="long">Долго</option>
+    </select>
+    <button type="submit">Применить фильтр</button>
+</form>
+
+<h2>Отфильтрованные объявления:</h2>
+<ul>
+    {% for ad in filtered_ads %}
+    <li>{{ ad }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
