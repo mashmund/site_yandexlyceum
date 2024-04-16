@@ -59,6 +59,22 @@
         {{ error }}
     </p>
     {% endfor %}
+    <p>
+        {{ form.contact.label }}<br>
+        {{ form.contact(class="form-control") }}<br>
+        {% for error in form.contact.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.photo.label }}<br>
+        {{ form.photo(class="form-control") }}<br>
+        {% for error in form.photo.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>
