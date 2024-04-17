@@ -20,13 +20,13 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 engine = create_engine('sqlite:///db/mars.db')
 
 # Создайте все таблицы, определенные в моделях
 db_session.SqlAlchemyBase.metadata.create_all(engine)
 api_key = '40d1649f-0493-4b70-98ba-98533de7710b'
 db_session.global_init("db/mars.db")
-
 
 @app.route("/about_us")
 def about_us():
@@ -40,26 +40,28 @@ def index():
     filtered_ads = []
     context["jobs"] = db_sess.query(Jobs).all()
     if request == 'POST':
-        age = request.form.get('age')
-        if age:
-            print(1)
-            for i in context['jobs']:
-                if i == age:
-                    filtered_ads.append(i)
-
-        else:
-            filtered_ads = context["jobs"]
-            print(2)
+        pass
     else:
         print(3)
         age = request.form.get('age')
+        spher = request.form.get('spher')
         if age:
-            for i in context['jobs']:
-                print(i.age == age)
-                if str(i.age) == str(age):
-                    filtered_ads.append(i)
+            if spher:
+                for i in context['jobs']:
+                    if str(i.age) == str(age) and str(i.spher) == str(spher):
+                        filtered_ads.append(i)
+            else:
+                for i in context['jobs']:
+                    if str(i.age) == str(age):
+                        filtered_ads.append(i)
         else:
-            filtered_ads = context["jobs"]
+            if spher:
+                for i in context['jobs']:
+                    if str(i.spher) == str(spher):
+                        filtered_ads.append(i)
+            else:
+                filtered_ads = context["jobs"]
+
     print(filtered_ads)
     return render_template('index.html', filtered_ads=filtered_ads, **context)
 
@@ -77,9 +79,9 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        if form.role.data == 'Участник':
+        if form.role.data == 'Подписчик':
             user_type = 3
-        elif form.role.data == 'Организатор':
+        elif form.role.data == 'Разработчик':
             user_type = 2
         user = User(
             name=form.name.data,
@@ -148,7 +150,10 @@ def add_jobs():
             des=add_form.des.data,
             spher=add_form.spher.data,
             age=add_form.age.data,
-            adress=add_form.adress.data
+            adress=add_form.adress.data,
+            photo=add_form.photo.data,
+            contact=add_form.contact.data
+
         )
         db_sess.add(jobs)
         db_sess.commit()
@@ -187,6 +192,8 @@ def edit_games(id):
             form.spher.data = job.spher
             form.age.data = job.age
             form.adress.data = job.adress
+            form.photo.data = job.photo
+            form.contact.data = job.contact
         else:
             abort(404)
     if form.validate_on_submit():
@@ -198,12 +205,14 @@ def edit_games(id):
             job.spher = form.spher.data
             job.age = form.age.data
             job.adress = form.adress.data
+            job.photo = form.photo.data
+            job.contact = form.contact.data
             db_sess.commit()
             return redirect('/')
         else:
             abort(404)
     return render_template('add_job.html',
-                           title='Редактирование мероприятия',
+                           title='Редактирование игры',
                            form=form
                            )
 
@@ -233,4 +242,4 @@ def bad_request(_):
 
 if __name__ == '__main__':
     app.register_blueprint(jobs_api.blueprint)
-    app.run(port=8088, host='127.0.0.1')
+    app.run(port=8008, host='127.0.0.1')

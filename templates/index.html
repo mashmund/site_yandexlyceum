@@ -93,6 +93,8 @@
       .prev, .next,.text {font-size: 11px}
       }
 
+
+
     </style>
 </head>
 <div class="slideshow-container">
@@ -130,6 +132,8 @@
 
       }
 
+
+
 </script>
 
 {% endif %}
@@ -138,13 +142,66 @@
 <form action="/" method="post">
     <label for="age">Выберите возраст:</label>
     <select name="age" id="age">
-        <option value="14">14</option>
-        <option value="16">16</option>
-        <option value="18">18</option>
+        <option value="14" {% if last_selected_age==
+        '14' %}selected{% endif %}>14</option>
+        <option value="16" {% if last_selected_age==
+        '16' %}selected{% endif %}>16</option>
+        <option value="18" {% if last_selected_age==
+        '18' %}selected{% endif %}>18</option>
     </select>
     <button type="submit">Применить фильтр</button>
 </form>
 
+<form action="/" method="post">
+    <label for="age">Выберите возраст:</label>
+    <select name="spher" id="spher">
+        <option value="социальное" {% if last_selected_age==
+        'социальное' %}selected{% endif %}>социальное</option>
+        <option value="экологическое" {% if last_selected_age==
+        'экологическо' %}selected{% endif %}>экологическое</option>
+        <option value="культурное" {% if last_selected_age==
+        'культурное' %}selected{% endif %}>культурное</option>
+        <option value="медицинское" {% if last_selected_age==
+        'медицинское' %}selected{% endif %}>медицинское</option>
+    </select>
+    <button type="submit">Применить фильтр</button>
+</form>
+
+<script>
+        // Получаем элементы формы и выпадающего списка
+        var ageForm = document.getElementById('ageForm');
+        var ageSelect = document.getElementById('age');
+        var spherForm = document.getElementById('spherForm');
+        var spherSelect = document.getElementById('spher');
+
+        // Получаем последние выбранные значения из локального хранилища
+        var lastSelectedAge = localStorage.getItem('lastSelectedAge_age');
+        var lastSelectedSpher = localStorage.getItem('lastSelectedAge_spher');
+
+        // Если есть последние выбранные значения, устанавливаем их как выбранные значения по умолчанию
+        if (lastSelectedAge) {
+            ageSelect.value = lastSelectedAge;
+        }
+        if (lastSelectedSpher) {
+            spherSelect.value = lastSelectedSpher;
+        }
+
+        // Слушаем изменения в выпадающих списках и сохраняем выбранные значения в локальное хранилище
+        ageSelect.addEventListener('change', function() {
+            localStorage.setItem('lastSelectedAge_age', ageSelect.value);
+        });
+        spherSelect.addEventListener('change', function() {
+            localStorage.setItem('lastSelectedAge_spher', spherSelect.value);
+        });
+
+        // Слушаем отправку форм и удаляем значения из локального хранилища
+        ageForm.addEventListener('submit', function() {
+            localStorage.removeItem('lastSelectedAge_age');
+        });
+        spherForm.addEventListener('submit', function() {
+            localStorage.removeItem('lastSelectedAge_spher');
+        });
+    </script>
 {% for item in filtered_ads %}
 
 <div class="alert alert-primary" role="alert" onclick="location.href='/jobbs/{{ item.job }}';">
