@@ -79,9 +79,9 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        if form.role.data == 'Подписчик':
+        if form.role.data == 'Участник':
             user_type = 3
-        elif form.role.data == 'Разработчик':
+        elif form.role.data == 'Организатор':
             user_type = 2
         user = User(
             name=form.name.data,
@@ -242,4 +242,4 @@ def bad_request(_):
 
 if __name__ == '__main__':
     app.register_blueprint(jobs_api.blueprint)
-    app.run(port=8008, host='127.0.0.1')
+    app.run(port=8000, host='127.0.0.1')
