@@ -1,26 +1,83 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Карта с адресом</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"
+          integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44c2pxXZcEFX8eeEU3HP0R3IwB0762v7u9rF0CqR5BbP7A=="
+          crossorigin=""/>
     <style>
-        #map { height: 10px; weight: 5  px;}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #map {
+            height: 300px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .author {
+            font-style: italic;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
     </style>
 </head>
 <body>
-<h1>{{ params.job }}</h1>
 
+<div class="content-container">
+    <h2 align="center">{{params.job}}</h2>
+    <div id="map">{{ adr|safe }}</div>
 
-<h2>Сфера {{ params.spher }}</h2>
-<h2>Описание:<br> {{ params.des }}</h2>
+    <h2>Сфера:</h2>
+    <p>{{ params.spher }}</p>
 
-<h2>Возраст: {{params.age}}</h2>
+    <h2>Описание:</h2>
+    <p>{{ params.des }}</p>
 
-<h2>Автор(ы): {{params.user.name}}</h2>
-<h1>Карта с адресом</h1>
-<div id="map">{{ adr|safe }}</div>
+    <h2>Возраст:</h2>
+    <p>{{ params.age }}</p>
+
+    <h2>Автор(ы):</h2>
+    <p class="author">{{ params.user.name }}</p>
+
+    <img src="{{ url_for('static', filename=params.photo) }}" alt="Мое фото">
+</div>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 </body>
 </html>
+{% endblock %}

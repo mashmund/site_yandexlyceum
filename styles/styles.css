@@ -1,48 +1,85 @@
-/* styles.css */
+/* Overall styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #f5f5f5;
+    font-size: 16px;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
+/* Header styling */
+header {
+    background-color: #006089;
+    color: #fff;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.container div {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.container div:first-child {
-    text-align: center;
+/* Page title */
+h1 {
+    margin-top: 0;
+    font-size: 24px;
 }
 
-.container font[size="12"] {
-    color: #333;
+/* Content container styling */
+.content-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.container font[size="6"] {
+/* Map container styling */
+#map {
+    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Description styling */
+h2 {
+    color: #006089;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* Button styling */
+.button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #006089;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #004163;
+}
+
+/* Author styling */
+.author {
+    font-style: italic;
     color: #666;
+    margin-top: 20px;
 }
 
-.container font[size="8"] {
-    color: #444;
-}
-
-.container font[size="8"] br {
-    display: none; /* Скрыть переносы строк между именами */
-}
-
-.container font[size="8"] br + br {
-    display: block; /* Показать перенос строки после имен */
-}
-
-.container font[size="8"] br + br::before {
-    content: ", "; /* Добавить запятую перед вторым именем */
+/* Image styling */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }

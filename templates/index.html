@@ -212,7 +212,7 @@
     <div>
         Автор - {{item.user.name}}
     </div>
-    {% if current_user.is_authenticated and current_user == item. User or current_user.type_of_user == 2 %}
+    {% if current_user.is_authenticated and current_user.id == item.team_leader %}
     <div>
         <a href="/jobs/{{ item.id }}" class="btn btn-warning">
             Изменить
