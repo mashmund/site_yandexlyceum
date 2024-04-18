@@ -1,0 +1,48 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container div {
+    margin-bottom: 20px;
+}
+
+.container div:first-child {
+    text-align: center;
+}
+
+.container font[size="12"] {
+    color: #333;
+}
+
+.container font[size="6"] {
+    color: #666;
+}
+
+.container font[size="8"] {
+    color: #444;
+}
+
+.container font[size="8"] br {
+    display: none; /* Скрыть переносы строк между именами */
+}
+
+.container font[size="8"] br + br {
+    display: block; /* Показать перенос строки после имен */
+}
+
+.container font[size="8"] br + br::before {
+    content: ", "; /* Добавить запятую перед вторым именем */
+}
