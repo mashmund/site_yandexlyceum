@@ -1,4 +1,4 @@
-from fileinput import filename
+from io import BytesIO
 
 import requests
 from flask import Flask, render_template, redirect, make_response, jsonify, abort, request
@@ -13,6 +13,7 @@ from data.forms.add_jobs import JobForm
 from data.forms.user import RegisterForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import folium
+from PIL import Image
 from data.jobs import Jobs
 from data.users import User
 from data.gerate_adress import *
@@ -130,14 +131,12 @@ def logout():
 @login_required
 def add_jobs():
     add_form = JobForm()
-    location = request.form.get('location')
-
-    # Запрос к API Яндекс.Карт для получения координат по адресу
-    url = f'https://geocode-maps.yandex.ru/1.x/?apikey={api_key}&format=json&geocode={location}'
-    response = requests.get(url)
-    data = response.json()
-
+    print(add_form.picture.data)
     if add_form.validate_on_submit():
+        filename = add_form.picture.data.filename
+        file_object = add_form.picture.data.stream
+        img = Image.open(BytesIO(file_object.read()))
+        img.save(f'static/img/{filename}', 'PNG')
         db_sess = db_session.create_session()
         jobs = Jobs(
             job=add_form.job.data,
@@ -146,6 +145,7 @@ def add_jobs():
             age=add_form.age.data,
             adress=add_form.adress.data,
             contact=add_form.contact.data,
+            picture=filename
         )
         db_sess.add(jobs)
         db_sess.commit()
@@ -232,4 +232,4 @@ def bad_request(_):
 
 if __name__ == '__main__':
     app.register_blueprint(jobs_api.blueprint)
-    app.run(port=555, host='127.0.0.1')
+    app.run(port=5500, host='127.0.0.1')

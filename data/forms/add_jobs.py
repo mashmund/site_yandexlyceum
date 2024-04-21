@@ -10,4 +10,5 @@ class JobForm(FlaskForm):
     age = SelectField('Возраст', choices=['14', '16', '18'], validators=[DataRequired()])
     adress = StringField('Адрес проведения', validators=[DataRequired()])
     contact = StringField('Контакт', validators=[DataRequired()])
+    picture = FileField('Фото', validators=[DataRequired()])
     submit = SubmitField('Добавить')

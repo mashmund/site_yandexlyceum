@@ -12,7 +12,7 @@ class Jobs(SqlAlchemyBase, SerializerMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     team_leader = sqlalchemy.Column(sqlalchemy.Integer,
-                                    sqlalchemy.ForeignKey("users.id"))
+                                    sqlalchemy.ForeignKey("users.name"))
     job = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     des = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     spher = sqlalchemy.Column(sqlalchemy.String, nullable=True)
@@ -23,6 +23,7 @@ class Jobs(SqlAlchemyBase, SerializerMixin):
     age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     adress = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     contact = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    picture = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     user = orm.relationship('User')
 
 

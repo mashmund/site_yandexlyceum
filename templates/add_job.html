@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Добавление волонтерства</h1>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <p>
@@ -54,6 +54,14 @@
         {{ form.contact.label }}<br>
         {{ form.contact(class="form-control") }}<br>
         {% for error in form.contact.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.picture.label }}<br>
+        {{ form.picture(class="form-control", type="file", accept="image/*") }}<br>
+        {% for error in form.picture.errors %}
     <p class="alert alert-danger" role="alert">
         {{ error }}
     </p>

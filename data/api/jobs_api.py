@@ -18,7 +18,7 @@ def get_news():
     return jsonify(
         {
             'jobs':
-                [item.to_dict(only=('id', 'job', 'des', 'spher', 'age', 'adress', 'contact'))
+                [item.to_dict(only=('id', 'job', 'des', 'spher', 'age', 'adress', 'contact', 'picture'))
                  for item in jobs]
         }
     )
@@ -33,7 +33,7 @@ def get_one_jobs(jobs_id):
     return jsonify(
         {
             'jobs': jobs.to_dict(only=(
-                'id', 'job', 'des', 'spher', 'age', 'adress', 'contact'))
+                'id', 'job', 'des', 'spher', 'age', 'adress', 'contact', 'picture'))
         }
     )
 
@@ -43,7 +43,7 @@ def create_jobs():
     if not request.json:
         return make_response(jsonify({'error': 'Empty request'}), 400)
     elif not all(key in request.json for key in
-                 ['job', 'des', 'spher', 'age', 'adress', 'contact']):
+                 ['job', 'des', 'spher', 'age', 'adress', 'contact', 'picture']):
         return make_response(jsonify({'error': 'Bad request'}), 400)
     db_sess = db_session.create_session()
     jobs = Jobs(
@@ -52,7 +52,8 @@ def create_jobs():
         spher=request.json['spher'],
         age=request.json['age'],
         adress=request.json['adress'],
-        contact=request.json['contact']
+        contact=request.json['contact'],
+        picture=request.json['picture']
     )
     db_sess.add(jobs)
     db_sess.commit()

@@ -63,8 +63,8 @@
 </header>
 
 <div class="content-container">
-    <div id="map">{{ adr|safe }}</div>
-
+    <div>
+    <img height=100% width=100% src="/static/img/{{params.picture}}" ></div>
     <h2>Описание:</h2>
     <p>{{ params.des }}</p>
 
@@ -72,9 +72,10 @@
 
     <h2>Возраст:</h2>
     <p>{{ params.age }}</p>
-    <a href="/" class="button">Кнопка</a>
     <h2>Автор(ы): {{ params.user.name }}</h2>
-    <img>
+    <div id="map">{{ adr|safe }}</div>
+    <a href="/" class="button">Кнопка</a>
+
 
 </div>
 
