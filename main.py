@@ -127,6 +127,7 @@ def logout():
     return redirect("/")
 
 
+# добавление волонтерства
 @app.route('/add_jobs', methods=['GET', 'POST'])
 @login_required
 def add_jobs():
@@ -182,7 +183,6 @@ def edit_games(id):
             form.spher.data = job.spher
             form.age.data = job.age
             form.adress.data = job.adress
-            # form.photo.label = job.photo
             form.contact.data = job.contact
         else:
             abort(404)
@@ -201,12 +201,13 @@ def edit_games(id):
             return redirect('/')
         else:
             abort(404)
-    return render_template('add_job.html',
+    return render_template('changes_job.html',
                            title='Редактирование игры',
                            form=form
                            )
 
 
+# удаление объявления
 @app.route('/jobs_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def games_delete(id):

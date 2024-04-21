@@ -3,22 +3,13 @@
 {% block content %}
 <h1>Изменение волонтерства</h1>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <p>
         {{ form.job.label }}<br>
         {{ form.job(class="form-control") }}<br>
         {% for error in form.job.errors %}
-    <p class="alert alert-danger" role="alert">
-        {{ error }}
-    </p>
-    {% endfor %}
-    </p>
-    <p>
-        {{ form.team_leader.label }}<br>
-        {{ form.team_leader(class="form-control") }}<br>
-        {% for error in form.team_leader.errors %}
     <p class="alert alert-danger" role="alert">
         {{ error }}
     </p>
@@ -68,14 +59,15 @@
     </p>
     {% endfor %}
     <p>
-        {{ form.photo.label }}<br>
-        {{ form.photo(class="form-control") }}<br>
-        {% for error in form.photo.errors %}
+        {{ form.picture.label }}<br>
+        {{ form.picture(class="form-control", type="file", accept="image/*") }}<br>
+        {% for error in form.picture.errors %}
     <p class="alert alert-danger" role="alert">
         {{ error }}
     </p>
     {% endfor %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
+
 </form>
 {% endblock %}
