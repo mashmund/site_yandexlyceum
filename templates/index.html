@@ -142,12 +142,9 @@
 <form action="/" method="post">
     <label for="age">Выберите возраст:</label>
     <select name="age" id="age">
-        <option value="14" {% if last_selected_age==
-        '14' %}selected{% endif %}>14</option>
-        <option value="16" {% if last_selected_age==
-        '16' %}selected{% endif %}>16</option>
-        <option value="18" {% if last_selected_age==
-        '18' %}selected{% endif %}>18</option>
+        <option value="14" {% if last_selected_age=='14' %}selected{% endif %}>14</option>
+        <option value="16" {% if last_selected_age=='16' %}selected{% endif %}>16</option>
+        <option value="18" {% if last_selected_age=='18' %}selected{% endif %}>18</option>
     </select>
     <button type="submit">Применить фильтр</button>
 </form>

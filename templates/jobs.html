@@ -72,13 +72,10 @@
 
     <h2>Возраст:</h2>
     <p>{{ params.age }}</p>
+    <a href="/" class="button">Кнопка</a>
+    <h2>Автор(ы): {{ params.user.name }}</h2>
+    <img>
 
-    <h2>Автор(ы):</h2>
-    <p class="author">{{ params.user.name }}</p>
-
-    <img src="{{ url_for('static', filename=params.photo) }}" alt="Мое фото">
-
-    <a href="#" class="button">Кнопка</a>
 </div>
 
 <!-- Leaflet JavaScript -->

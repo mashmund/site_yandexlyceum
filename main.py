@@ -1,3 +1,5 @@
+from fileinput import filename
+
 import requests
 from flask import Flask, render_template, redirect, make_response, jsonify, abort, request
 from flask_wtf import form
@@ -20,13 +22,13 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
 engine = create_engine('sqlite:///db/mars.db')
 
 # Создайте все таблицы, определенные в моделях
 db_session.SqlAlchemyBase.metadata.create_all(engine)
 api_key = '40d1649f-0493-4b70-98ba-98533de7710b'
 db_session.global_init("db/mars.db")
+
 
 @app.route("/about_us")
 def about_us():
@@ -135,25 +137,15 @@ def add_jobs():
     response = requests.get(url)
     data = response.json()
 
-    # Получаем координаты из ответа API
-    try:
-        coordinates = data['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']
-        coordinates = ','.join(coordinates.split())
-        print('Координаты местоположения: {coordinates}')
-    except (KeyError, IndexError):
-        print('Не удалось получить координаты для указанного местоположения.')
     if add_form.validate_on_submit():
         db_sess = db_session.create_session()
         jobs = Jobs(
             job=add_form.job.data,
-            team_leader=add_form.team_leader.data,
             des=add_form.des.data,
             spher=add_form.spher.data,
             age=add_form.age.data,
             adress=add_form.adress.data,
-            photo=add_form.photo.data,
-            contact=add_form.contact.data
-
+            contact=add_form.contact.data,
         )
         db_sess.add(jobs)
         db_sess.commit()
@@ -170,7 +162,7 @@ def game(name):
 
         try:
             job = db_sess.query(Jobs).filter(Jobs.job == name).one()
-            return render_template("test.html", params=job, adr=get_adress(job.adress))
+            return render_template("jobs.html", params=job, adr=get_adress(job.adress))
         except Exception as e:
             print(e)
             return abort(404)
@@ -187,12 +179,10 @@ def edit_games(id):
         if job:
             form.job.data = job.job
             form.des.data = job.des
-            # form.picture.label = game.picture
-            # form.archive.data.filename = game.archive
             form.spher.data = job.spher
             form.age.data = job.age
             form.adress.data = job.adress
-            form.photo.data = job.photo
+            # form.photo.label = job.photo
             form.contact.data = job.contact
         else:
             abort(404)
@@ -205,7 +195,7 @@ def edit_games(id):
             job.spher = form.spher.data
             job.age = form.age.data
             job.adress = form.adress.data
-            job.photo = form.photo.data
+            # job.photo = form.photo.label
             job.contact = form.contact.data
             db_sess.commit()
             return redirect('/')
@@ -242,4 +232,4 @@ def bad_request(_):
 
 if __name__ == '__main__':
     app.register_blueprint(jobs_api.blueprint)
-    app.run(port=8000, host='127.0.0.1')
+    app.run(port=555, host='127.0.0.1')

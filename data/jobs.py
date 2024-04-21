@@ -23,7 +23,6 @@ class Jobs(SqlAlchemyBase, SerializerMixin):
     age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     adress = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     contact = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     user = orm.relationship('User')
 
 
