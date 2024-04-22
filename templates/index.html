@@ -168,9 +168,6 @@
     <div>
         {{item.des}}
     </div>
-    <div>
-        Автор - {{item.user.name}}
-    </div>
     {% if (current_user.is_authenticated or current_user.type_of_user == 2) and current_user.id == item.team_leader%}
     <div>
         <a href="/jobs/{{ item.id }}" class="btn btn-warning">
