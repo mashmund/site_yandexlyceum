@@ -6,13 +6,15 @@ from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
 
 
+
+
 class Jobs(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'jobs'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    team_leader = sqlalchemy.Column(sqlalchemy.Integer,
-                                    sqlalchemy.ForeignKey("users.name"))
+    team_leader_id = sqlalchemy.Column(sqlalchemy.Integer,
+                                    sqlalchemy.ForeignKey("users.id"))
     job = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     des = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     spher = sqlalchemy.Column(sqlalchemy.String, nullable=True)
@@ -24,7 +26,7 @@ class Jobs(SqlAlchemyBase, SerializerMixin):
     adress = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     contact = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     picture = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    user = orm.relationship('User')
+    team_leader = orm.relationship('User', back_populates='jobs')
 
 
 def __repr__(self):
