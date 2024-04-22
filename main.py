@@ -139,8 +139,10 @@ def add_jobs():
         img = Image.open(BytesIO(file_object.read()))
         img.save(f'static/img/{filename}', 'PNG')
         db_sess = db_session.create_session()
+        print(current_user.id)
         jobs = Jobs(
             job=add_form.job.data,
+            team_leader=current_user.id,
             des=add_form.des.data,
             spher=add_form.spher.data,
             age=add_form.age.data,
@@ -161,8 +163,12 @@ def game(name):
     if request.method == 'GET':
         db_sess = db_session.create_session()
 
-        job = db_sess.query(Jobs).filter(Jobs.job == name).one()
-        return render_template("jobs.html", params=job, adr=get_adress(job.adress))
+        try:
+            job = db_sess.query(Jobs).filter(Jobs.job == name).one()
+            return render_template("jobs.html", params=job, adr=get_adress(job.adress))
+        except Exception as e:
+            print(e)
+            return abort(404)
 
 
 # обработчик страницы редактирования игры
@@ -175,7 +181,6 @@ def edit_games(id):
         job = db_sess.query(Jobs).filter(Jobs.id == id).first()
         if job:
             form.job.data = job.job
-            form.team_leader.data = job.team_leader
             form.des.data = job.des
             form.spher.data = job.spher
             form.age.data = job.age
@@ -188,7 +193,6 @@ def edit_games(id):
         job = db_sess.query(Jobs).filter(Jobs.id == id).first()
         if job:
             job.job = form.job.data
-            job.team_leader = form.team_leader.data
             job.des = form.des.data
             job.spher = form.spher.data
             job.age = form.age.data
@@ -232,3 +236,4 @@ def bad_request(_):
 if __name__ == '__main__':
     app.register_blueprint(jobs_api.blueprint)
     app.run(port=5500, host='127.0.0.1')
+

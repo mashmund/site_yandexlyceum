@@ -97,44 +97,6 @@
 
     </style>
 </head>
-<div class="slideshow-container">
-    {% for item in games_slider %}
-    <!--onclick="location.href='/games/{{ item.title }}';"-->
-    <div class="mySlides">
-        <img src="/static/img/{{item.picture}}" style="width:100%">
-        <div class="text">{{item.title}}</div>
-    </div>
-    {% endfor %}
-
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-<div style="text-align:center">
-    {% for item in games_slider %}
-    <span class="dot" onclick="currentSlide(2)"></span>
-    {% endfor %}
-</div>
-<script>
-      var slideIndex = 0;
-      showSlides();
-
-      function showSlides() {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}
-        slides[slideIndex-1].style.display = "block";
-        setTimeout(showSlides, 5000); // Change image every 2 seconds
-
-      }
-
-
-
-</script>
 
 {% endif %}
 <h1 align="center">Мероприятия</h1>
@@ -207,9 +169,9 @@
         {{item.des}}
     </div>
     <div>
-        Автор - {{item.team_leader_id}}
+        Автор - {{item.user.name}}
     </div>
-    {% if current_user.is_authenticated and current_user.id == item.team_leader %}
+    {% if (current_user.is_authenticated or current_user.type_of_user == 2) and current_user.id == item.team_leader%}
     <div>
         <a href="/jobs/{{ item.id }}" class="btn btn-warning">
             Изменить

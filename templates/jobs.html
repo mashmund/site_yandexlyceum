@@ -16,7 +16,6 @@
 
         header {
             background-color: #fff;
-            color: #000;
             text-align: center;
             padding: 20px 0;
         }
@@ -24,6 +23,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            color: 000;
         }
         #map {
             height: 300px;
@@ -64,8 +64,8 @@
 </header>
 
 <div class="content-container">
-    <div id="map">{{ adr|safe }}</div>
-
+    <div>
+    <img height=100% width=100% src="/static/img/{{params.picture}}" ></div>
     <h2>Описание:</h2>
     <p>{{ params.des }}</p>
 
@@ -73,9 +73,11 @@
 
     <h2>Возраст:</h2>
     <p>{{ params.age }}</p>
+    <a href="mailto:{params.contact}">Почта контактная</a>
+    <h2>Автор(ы): {{ params.user.name }}</h2>
+    <div id="map">{{ adr|safe }}</div>
     <a href="/" class="button">Кнопка</a>
-    <h2>Автор(ы): {{ params.team_leader }}</h2>
-    <img>
+
 
 </div>
 
